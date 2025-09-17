@@ -28,7 +28,6 @@ from lingxingapi import API
 async def test(self, app_id: str, app_secret: str) -> None:
     async with API(app_id, app_secret) as api:
         sellers = await api.basic.Sellers()
-        print(sellers)
 ```
 
 ### Acknowledgements
