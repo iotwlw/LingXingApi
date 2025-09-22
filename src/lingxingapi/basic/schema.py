@@ -190,7 +190,7 @@ class Accounts(ResponseV1):
 class ExchangeRate(BaseModel):
     """货币汇率."""
 
-    # 汇率日期 (格式: YYYY-MM)
+    # 汇率日期 (格式: YYYY-MM-DD)
     date: str
     # 货币名称 (中文) [原字段 'name']
     currency: str = Field(validation_alias="name")
@@ -204,6 +204,12 @@ class ExchangeRate(BaseModel):
     user_rate: float = Field(validation_alias="my_rate")
     # 用户汇率修改时间 (北京时间)
     update_time: str
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    @field_validator("date", mode="after")
+    @classmethod
+    def _validate_date(cls, v: str) -> str:
+        return v + "-01"
 
 
 class ExchangeRates(ResponseV1):

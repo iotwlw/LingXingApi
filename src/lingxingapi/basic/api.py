@@ -380,8 +380,8 @@ class BasicAPI(BaseAPI):
             # 响应数据
             "data": [
                 {
-                    # 汇率日期 (格式: YYYY-MM)
-                    "date": "2025-01",
+                    # 汇率日期 (格式: YYYY-MM-DD)
+                    "date": "2025-01-01",
                     # 货币名称 (中文) [原字段 'name']
                     "currency": "美元",
                     # 货币代码 [原字段 'code']
