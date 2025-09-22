@@ -14,7 +14,7 @@ class Marketplace(BaseModel):
     # 站点区域
     region: str
     # 站点亚马逊仓库所属区域 [原字段 'aws_region']
-    amazon_region: str = Field(validation_alias="aws_region")
+    region_aws: str = Field(validation_alias="aws_region")
     # 站点国家 (中文)
     country: str
     # 站点国家代码 [原字段 'code']
@@ -151,7 +151,7 @@ class Account(BaseModel):
     """领星账号."""
 
     # 领星账号所从属的ID (如主帐号ID) [原字段 'zid']
-    mid: int = Field(validation_alias="zid")
+    parent_id: int = Field(validation_alias="zid")
     # 领星帐号ID [唯一标识] [原字段 'uid']
     user_id: int = Field(validation_alias="uid")
     # 是否为主账号 (0: 否, 1: 是)

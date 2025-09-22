@@ -48,7 +48,7 @@ class BasicAPI(BaseAPI):
                     # 站点区域
                     "region": "NA",
                     # 站点亚马逊仓库所属区域 [原字段 'aws_region']
-                    "amazon_region": "NA",
+                    "region_aws": "NA",
                     # 站点国家 (中文)
                     "country": "美国",
                     # 站点国家代码 [原字段 'code']
@@ -309,7 +309,7 @@ class BasicAPI(BaseAPI):
             "data": [
                 {
                     # 领星账号所从属的ID (如主帐号ID) [原字段 'zid']
-                    "mid": 1,
+                    "parent_id": 1,
                     # 领星帐号ID [唯一标识] [原字段 'uid']
                     "user_id": 1,
                     # 是否为主账号 (0: 否, 1: 是)
