@@ -64,6 +64,7 @@ lost+found
 /.vscode
 /.idea
 /.venv
+/.claude
 
 # Python #
 ######################
@@ -73,3 +74,6 @@ __pycache__
 *.egg-info
 *.tar.gz
 *.whl
+comprehensive_api_test.py
+library_test.py
+CLAUDE.md
