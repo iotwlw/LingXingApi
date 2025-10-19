@@ -1,0 +1,17 @@
+{
+  "api": {
+    "app_id": "your_app_id_here",
+    "app_secret": "your_app_secret_here"
+  },
+  "proxy": {
+    "enabled": true,
+    "http_url": "http://proxy.example.com:port",
+    "https_url": "http://proxy.example.com:port"
+  },
+  "settings": {
+    "timeout": 30,
+    "ignore_api_limit": true,
+    "ignore_api_limit_wait": 0.5,
+    "ignore_api_limit_retry": 3
+  }
+}

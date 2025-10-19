@@ -78,3 +78,16 @@ comprehensive_api_test.py
 library_test.py
 CLAUDE.md
 run_test.ps1
+
+# Configuration files (sensitive data) #
+######################
+config.json
+*.local.json
+.env
+.env.local
+.env.*.local
+
+# Test files with real credentials #
+######################
+test_library_with_proxy.py
+test_with_config.py
