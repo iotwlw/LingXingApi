@@ -74,11 +74,10 @@ __pycache__
 *.egg-info
 *.tar.gz
 *.whl
-comprehensive_api_test.py
-CLAUDE.md
 
 # Configuration files (sensitive data) #
 ######################
+CLAUDE.md
 config.json
 *.local.json
 .env
@@ -87,4 +86,5 @@ config.json
 
 # Test files with real credentials #
 ######################
-test_with_config.py
+test_*.py
+*_test.py
