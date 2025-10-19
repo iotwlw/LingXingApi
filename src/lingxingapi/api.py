@@ -37,6 +37,7 @@ class API(BaseAPI):
         ignore_api_limit: bool = False,
         ignore_api_limit_wait: int | float = 0.2,
         ignore_api_limit_retry: int = 60,
+        proxy: str | None = None,
     ) -> None:
         """初始化领星 API 客户端
 
@@ -53,6 +54,7 @@ class API(BaseAPI):
             默认为 `0.2` 秒, 仅在 `ignore_api_limit` 为 `True` 时生效
         :param ignore_api_limit_retry `<'int'>`: 忽略 API 限流错误时的最大重试次数,
             默认为 `60`, 仅在 `ignore_api_limit` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
+        :param proxy `<'str/None'>`: 代理服务器地址, 格式如 "http://proxy.example.com:port", 默认为 `None`
         """
         # 验证参数
         # . API 凭证
@@ -90,6 +92,7 @@ class API(BaseAPI):
             "ignore_api_limit": ignore_api_limit,
             "ignore_api_limit_wait": ignore_api_limit_wait,
             "ignore_api_limit_retry": ignore_api_limit_retry,
+            "proxy": proxy,
         }
         super().__init__(**kwargs)
         self._basic: BasicAPI = BasicAPI(**kwargs)

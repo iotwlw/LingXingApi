@@ -35,6 +35,7 @@ class BaseAPI:
         ignore_api_limit: bool,
         ignore_api_limit_wait: int | float,
         ignore_api_limit_retry: int,
+        proxy: str | None = None,
     ) -> None:
         """领星 API 基础类, 提供公共方法和属性供子类继承使用
 
@@ -56,6 +57,7 @@ class BaseAPI:
 
         :param ignore_api_limit_retry `<'int'>`: 忽略 API 限流错误时的最大重试次数,
             仅在 `ignore_api_limit` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
+        :param proxy `<'str/None'>`: 代理服务器地址, 格式如 "http://proxy.example.com:port", 默认为 `None`
         """
         # API 凭证
         self._app_id: str = app_id
@@ -68,6 +70,8 @@ class BaseAPI:
         self._ignore_api_limit_wait: float = ignore_api_limit_wait
         self._ignore_api_limit_retry: int = ignore_api_limit_retry
         self._infinite_retry: bool = ignore_api_limit_retry == -1
+        # 代理配置
+        self._proxy: str | None = proxy
 
     async def __aenter__(self) -> Self:
         """进入 API 客户端异步上下文管理器
@@ -183,24 +187,37 @@ class BaseAPI:
         """
         # 确保 HTTP 会话可用
         if BaseAPI._session is None or BaseAPI._session.closed:
+            # 配置连接器
+            connector = TCPConnector(limit=100)
+
+            # 如果使用代理，需要设置 trust_env=True 以便使用环境变量中的代理
+            # 或者直接传递代理参数给请求方法
             BaseAPI._session = ClientSession(
                 route.API_SERVER,
                 headers={"Content-Type": "application/json"},
                 timeout=self._timeout,
-                connector=TCPConnector(limit=100),
+                connector=connector,
+                trust_env=bool(self._proxy),  # 如果配置了代理，则信任环境变量
             )
 
         # 发送请求
         retry_count = 0
         while True:
             try:
-                async with BaseAPI._session.request(
-                    method,
-                    url,
-                    params=params,
-                    json=body,
-                    headers=headers,
-                ) as res:
+                # 构建请求参数
+                request_kwargs = {
+                    "method": method,
+                    "url": url,
+                    "params": params,
+                    "json": body,
+                    "headers": headers,
+                }
+
+                # 如果配置了代理，添加代理参数
+                if self._proxy:
+                    request_kwargs["proxy"] = self._proxy
+
+                async with BaseAPI._session.request(**request_kwargs) as res:
                     # . 检查响应状态码
                     if res.status != 200:
                         raise errors.ServerError(
