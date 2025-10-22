@@ -268,10 +268,6 @@ class Order:
     currency: str           # 货币
 ```
 
-## 接口文档
-
-- [领星API官方文档](https://apidoc.lingxing.com/#/)
-- 文档访问密钥: `hpvmgR4KeN`
 
 ## 开发指南
 
